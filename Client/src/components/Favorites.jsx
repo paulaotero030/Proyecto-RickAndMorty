@@ -1,61 +1,37 @@
- import Card from "./Card";
- import { connect } from "react-redux";
- import { filterCards, orderCards } from "../redux/actions";
- import { useDispatch } from "react-redux";
- import { useState } from "react";
+import Cards from './Cards';
+import { useSelector, useDispatch } from 'react-redux';
+import { filterCards, orderCards } from '../redux/actions';
+import { useState } from 'react';
 
- const Favorites = ({ myFavorites }) => {
+const Favorites = () => {
+  const dispatch = useDispatch();
+  const { myFavorites } = useSelector((state) => state);
   const [aux, setAux] = useState(false);
 
-  const dispatch = useDispatch();
-  const handleOrder = ()=>{
+  const handleOrder = (event) => {
     dispatch(orderCards(event.target.value));
     setAux(true);
-  }
+  };
 
-  const handleFilter = ()=>{
+  const handleFilter = (event) => {
     dispatch(filterCards(event.target.value));
-  }
-
+  };
 
   return (
-    <>
-    {
-      myFavorites?.map(fav => {
-        return (
-            <Card
-            key={fav.id}
-            id={fav.id}
-            name={fav.name}
-            species={fav.species}
-            gender={fav.gender}
-            image={fav.image}
-            onClose={fav.onClose}
-            />
-        )
-      })
-    }
-    <select onChange={handleOrder}>
-      <option value="A">ASCENDENTE</option>
-      <option value="D">DESCENDENTE</option>
-    </select>
-    <select onChange={handleFilter}>
-      <option value="Male"></option>
-      <option value="Female"></option>
-      <option value="Genderless"></option>
-      <option value="unknown"></option>
-    </select>
-    </>
-)
-}
+    <div>
+      <select onChange={handleOrder}>
+        <option value='A'>ASCENDENTE</option>
+        <option value='D'>DESCENDENTE</option>
+      </select>
+      <select onChange={handleFilter}>
+        <option value='Male'>Male</option>
+        <option value='Female'>Female</option>
+        <option value='Genderless'>Genderless</option>
+        <option value='unknown'>Unknown</option>
+      </select>
+      <Cards characters={myFavorites} />
+    </div>
+  );
+};
 
-const mapStateToProps = (state) => {
- return {
-    myFavorites: state.myFavorites
-}
-}
-
-export default connect(
-    mapStateToProps,
-    null
-)(Favorites);
+export default Favorites;

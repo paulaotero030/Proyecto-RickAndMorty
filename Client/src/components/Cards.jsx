@@ -1,26 +1,23 @@
 import Card from './Card';
+import './Cards.css';
 
-const Cards = ({ characters, onCLouse})=> {
-   return(
-    <div>
-        {
-         characters.map(({id, name, status, species, gender, origin, image}) =>{
-           return (
-             <Card 
-                  key={id}
-                  id={id}
-                  name={name}
-                  status={status}
-                  species={species}
-                  gender={gender}
-                  origin={origin.name}
-                  image={image}
-                  onClose={onCLouse}
-           />
-           )
-         })
-        }
+const Cards = ({ characters, onClose }) => {
+  return (
+    <div className='cards-container'>
+      {characters.map(({ id, name, image, gender }) => {
+        return (
+          <Card
+            key={id}
+            id={id}
+            name={name}
+            image={image}
+            gender={gender}
+            onClose={onClose}
+          />
+        );
+      })}
     </div>
-)}
+  );
+};
 
-export default Cards
+export default Cards;

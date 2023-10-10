@@ -1,0 +1,35 @@
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card {
+  width: 25%;
+  box-sizing: border-box;
+}
+
+/* Añade este código al final de tu archivo Card.css
+body {
+  height: 140vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  overflow: hidden;
+}
+
+@keyframes animateGalaxy {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
+body {
+  background-image: radial-gradient(circle, white 1%, transparent 1%);
+  background-size: 10px 10px;
+  animation: animateGalaxy 15s infinite alternate;
+} */
