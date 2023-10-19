@@ -1,43 +1,55 @@
-import { useState } from "react";
-import validation from "./validation";
-
+import { useState } from 'react';
+import validation from './validation';
+import './Form.css';
 const Form = ({ login }) => {
-   const [errors, setErrors] = useState({});
-   const [userData, setUserData] = useState({
+  const [errors, setErrors] = useState({});
+  const [userData, setUserData] = useState({
     email: '',
-    password: ''
-   })
+    password: '',
+  });
 
-   const handleChange = (event) =>{
+  const handleChange = (event) => {
     setUserData({
+      ...userData,
+      [event.target.name]: event.target.value,
+    });
+
+    setErrors(
+      validation({
         ...userData,
-        [event.target.name]: event.target.value 
-    })
+        [event.target.name]: event.target.value,
+      })
+    );
+  };
 
-    setErrors(validation({
-        ...userData,
-        [event.target.name]: event.target.value 
-    }))
-   }
+  const handleSumbit = (event) => {
+    event.preventDefault();
+    login(userData);
+  };
 
-   const handleSumbit = (event) =>{
-    event.preventDefault()
-    login(userData)
-   }
-
-    return (
-        <form onSubmit={handleSumbit}>
-            <label htmlFor="email">Email: </label>
-            <input type="email" name="email" onChange={handleChange} value={userData.email}></input>
-            {errors.email && <p>{errors.email}</p>}
-            <hr/>
-            <label htmlFor="password">Password: </label>
-            <input type="password" name="password" onChange={handleChange} value={userData.password}></input>
-            {errors.password && <p>{errors.password}</p>}
-            <hr/>
-            <button>Submit</button>
-        </form>
-    )
-}
+  return (
+    <form onSubmit={handleSumbit} className='form-container'>
+      <label htmlFor='email'>Email: </label>
+      <input
+        type='email'
+        name='email'
+        onChange={handleChange}
+        value={userData.email}
+      ></input>
+      {errors.email && <p>{errors.email}</p>}
+      <hr />
+      <label htmlFor='password'>Password: </label>
+      <input
+        type='password'
+        name='password'
+        onChange={handleChange}
+        value={userData.password}
+      ></input>
+      {errors.password && <p>{errors.password}</p>}
+      <hr />
+      <button>Submit</button>
+    </form>
+  );
+};
 
 export default Form;
